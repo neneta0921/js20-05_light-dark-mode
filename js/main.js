@@ -1,21 +1,11 @@
 const DARK_THEME = 'dark';
 const LIGHT_THEME = 'light';
 
-const toggleSwitch = document.querySelector('input[type="checkbox"]');
-
 document.addEventListener('DOMContentLoaded', () => {
   const main = new Main();
 
-  // Check Local Storage For Theme
-  const currentTheme = localStorage.getItem('theme');
-  if (currentTheme) {
-    document.documentElement.setAttribute('data-theme', currentTheme);
-
-    if (currentTheme === DARK_THEME) {
-      toggleSwitch.checked = true;
-      main.toggleDarkLightMode(true);
-    }
-  }
+  // On Load,  Check Local Storage For Theme
+  main.checkCurrentTheme();
 });
 
 class Main {
@@ -26,6 +16,7 @@ class Main {
     this.image2 = document.querySelector('#image2');
     this.image3 = document.querySelector('#image3');
     this.textBox = document.querySelector('#text-box');
+    this.toggleSwitch = document.querySelector('input[type="checkbox"]');
 
     this._init();
   }
@@ -41,7 +32,7 @@ class Main {
     this.image3.src = `img/undraw_conceptual_idea_${color}.svg`;
   }
 
-  toggleDarkLightMode(isDark) {
+  _toggleDarkLightMode(isDark) {
     this.nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
     this.textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
     this.toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
@@ -56,16 +47,28 @@ class Main {
     if (event.target.checked) {
       document.documentElement.setAttribute('data-theme', DARK_THEME);
       localStorage.setItem('theme', DARK_THEME);
-      this.toggleDarkLightMode(true);
+      this._toggleDarkLightMode(true);
     } else {
       document.documentElement.setAttribute('data-theme', LIGHT_THEME);
       localStorage.setItem('theme', LIGHT_THEME);
-      this.toggleDarkLightMode(false);
+      this._toggleDarkLightMode(false);
+    }
+  }
+
+  checkCurrentTheme() {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      if (currentTheme === DARK_THEME) {
+        this.toggleSwitch.checked = true;
+        this._toggleDarkLightMode(true);
+      }
     }
   }
 
   _addEvent() {
     // Event Listener
-    toggleSwitch.addEventListener('change', this._switchTheme.bind(this));
+    this.toggleSwitch.addEventListener('change', this._switchTheme.bind(this));
   }
 }
