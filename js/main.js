@@ -10,14 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 class Main {
   constructor() {
-    this.nav = document.querySelector('#nav');
-    this.toggleIcon = document.querySelector('#toggle-icon');
-    this.image1 = document.querySelector('#image1');
-    this.image2 = document.querySelector('#image2');
-    this.image3 = document.querySelector('#image3');
-    this.textBox = document.querySelector('#text-box');
     this.toggleSwitch = document.querySelector('input[type="checkbox"]');
-
     this._init();
   }
 
@@ -27,18 +20,27 @@ class Main {
 
   // Dark or Light Image
   _imageMode(color) {
-    this.image1.src = `img/undraw_proud_coder_${color}.svg`;
-    this.image2.src = `img/undraw_feeling_proud_${color}.svg`;
-    this.image3.src = `img/undraw_conceptual_idea_${color}.svg`;
+    for (let i = 1; i < 4; i++) {
+      `const image${i} = document.querySelector(#image${i})`;
+    }
+    image1.src = `img/undraw_proud_coder_${color}.svg`;
+    image2.src = `img/undraw_feeling_proud_${color}.svg`;
+    image3.src = `img/undraw_conceptual_idea_${color}.svg`;
   }
 
   _toggleDarkLightMode(isDark) {
-    this.nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
-    this.textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
-    this.toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    const nav = document.querySelector('#nav');
+    const toggleIcon = document.querySelector('#toggle-icon');
+    const textBox = document.querySelector('#text-box');
+    const white = 'rgb(255 255 255 / 50%)';
+    const black = 'rgb(0 0 0 / 50%)';
+
+    nav.style.backgroundColor = isDark ? black : white;
+    textBox.style.backgroundColor = isDark ? white : black;
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
     isDark
-      ? this.toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon')
-      : this.toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+      ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon')
+      : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
     isDark ? this._imageMode(DARK_THEME) : this._imageMode(LIGHT_THEME);
   }
 
