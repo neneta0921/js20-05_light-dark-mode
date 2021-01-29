@@ -20,9 +20,9 @@ class Main {
 
   // Dark or Light Image
   _imageMode(color) {
-    for (let i = 1; i < 4; i++) {
-      `const image${i} = document.querySelector(#image${i})`;
-    }
+    const image1 = document.querySelector('#image1');
+    const image2 = document.querySelector('#image2');
+    const image3 = document.querySelector('#image3');
     image1.src = `img/undraw_proud_coder_${color}.svg`;
     image2.src = `img/undraw_feeling_proud_${color}.svg`;
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
